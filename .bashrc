@@ -213,6 +213,11 @@ alias sha1='openssl sha1'
 
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
+# FAH
+
+alias fah-start='sudo /etc/init.d/FAHClient start'
+alias fah-stop='sudo /etc/init.d/FAHClient stop'
+
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
