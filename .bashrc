@@ -39,7 +39,7 @@ shopt -s histappend
 PROMPT_COMMAND='history -a'
 
 # Allow ctrl-S for history navigation (with ctrl-R)
-[[ $- == *i* ]] && stty -ixon
+stty -ixon
 
 # Ignore case on auto-completion
 # Note: bind used instead of sticking these in .inputrc
@@ -49,13 +49,15 @@ if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest > 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=neovim
+export VISUAL=neovim
 alias pico='edit'
+alias aamir='echo hello' 
 alias spico='sedit'
+alias rm='trash -v'
+
 alias nano='edit'
 alias snano='sedit'
-alias vim='nvim'
 
 # To have colors for ls and all grep commands such as grep, egrep and zgrep
 export CLICOLOR=1
@@ -119,9 +121,9 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='nvim'
+alias vi='vim'
 alias svi='sudo vi'
-alias vis='nvim "+set si"'
+alias vis='vim "+set si"'
 
 # Change directory aliases
 alias home='cd ~'
@@ -226,7 +228,7 @@ edit ()
 	elif [ "$(type -t pico)" = "file" ]; then
 		pico "$@"
 	else
-		nvim "$@"
+		vim "$@"
 	fi
 }
 sedit ()
@@ -239,7 +241,7 @@ sedit ()
 	elif [ "$(type -t pico)" = "file" ]; then
 		sudo pico "$@"
 	else
-		sudo nvim "$@"
+		sudo vim "$@"
 	fi
 }
 
@@ -366,28 +368,28 @@ distribution ()
 	local dtype
 	# Assume unknown
 	dtype="unknown"
-	
+
 	# First test against Fedora / RHEL / CentOS / generic Redhat derivative
 	if [ -r /etc/rc.d/init.d/functions ]; then
 		source /etc/rc.d/init.d/functions
 		[ zz`type -t passed 2>/dev/null` == "zzfunction" ] && dtype="redhat"
-	
+
 	# Then test against SUSE (must be after Redhat,
 	# I've seen rc.status on Ubuntu I think? TODO: Recheck that)
 	elif [ -r /etc/rc.status ]; then
 		source /etc/rc.status
 		[ zz`type -t rc_reset 2>/dev/null` == "zzfunction" ] && dtype="suse"
-	
+
 	# Then test against Debian, Ubuntu and friends
 	elif [ -r /lib/lsb/init-functions ]; then
 		source /lib/lsb/init-functions
 		[ zz`type -t log_begin_msg 2>/dev/null` == "zzfunction" ] && dtype="debian"
-	
+
 	# Then test against Gentoo
 	elif [ -r /etc/init.d/functions.sh ]; then
 		source /etc/init.d/functions.sh
 		[ zz`type -t ebegin 2>/dev/null` == "zzfunction" ] && dtype="gentoo"
-	
+
 	# For Mandriva we currently just test if /etc/mandriva-release exists
 	# and isn't empty (TODO: Find a better way :)
 	elif [ -s /etc/mandriva-release ]; then
@@ -586,7 +588,6 @@ lazyg() {
 	git push
 }
 
-alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
@@ -601,11 +602,10 @@ eval "$(starship init bash)"
 
 #Autojump
 
-if [ -f "/usr/share/autojump/autojump.sh" ]; then
-	. /usr/share/autojump/autojump.sh
-elif [ -f "/usr/share/autojump/autojump.bash" ]; then
-	. /usr/share/autojump/autojump.bash
-else
-	echo "can't found the autojump script"
-fi
+. /usr/share/autojump/autojump.sh
 
+  export DENO_INSTALL="/home/aamir/.deno"
+  export PATH="$DENO_INSTALL/bin:$PATH"
+
+
+e
