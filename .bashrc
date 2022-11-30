@@ -347,14 +347,14 @@ up ()
 }
 
 #Automatically do an ls after each cd
-# cd ()
-# {
-# 	if [ -n "$1" ]; then
-# 		builtin cd "$@" && ls
-# 	else
-# 		builtin cd ~ && ls
-# 	fi
-# }
+cd ()
+{
+	if [ -n "$1" ]; then
+		builtin cd "$@" && ls
+	else
+		builtin cd ~ && ls
+	fi
+}
 
 # Returns the last 2 fields of the working directory
 pwdtail ()
@@ -608,4 +608,4 @@ eval "$(starship init bash)"
   export PATH="$DENO_INSTALL/bin:$PATH"
 
 
-e
+
