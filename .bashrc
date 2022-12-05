@@ -216,7 +216,9 @@ alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 # FAH
 
 alias fah-start='sudo /etc/init.d/FAHClient start'
+alias fahstart='sudo /etc/init.d/FAHClient start'
 alias fah-stop='sudo /etc/init.d/FAHClient stop'
+alias fahstop='sudo /etc/init.d/FAHClient stop'
 
 #######################################################
 # SPECIAL FUNCTIONS
