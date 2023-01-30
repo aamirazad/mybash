@@ -615,4 +615,4 @@ eval "$(starship init bash)"
   export PATH="$DENO_INSTALL/bin:$PATH"
 
 
-
+alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
