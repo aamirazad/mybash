@@ -1,4 +1,4 @@
-#!/bin/bash
+
 iatest=$(expr index "$-" i)
 
 #######################################################
@@ -615,4 +615,7 @@ eval "$(starship init bash)"
   export PATH="$DENO_INSTALL/bin:$PATH"
 
 
-alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
+alias clickpaste='sleep 3; echo "type $(xclip -o -selection clipboard)" | dotool'
+
+
+alias tr='ranger'
