@@ -218,6 +218,10 @@ alias fahstart='sudo /etc/init.d/FAHClient start'
 alias fah-stop='sudo /etc/init.d/FAHClient stop'
 alias fahstop='sudo /etc/init.d/FAHClient stop'
 
+# Mount Storage
+
+alias mountStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /media/aamir/Storage/'
+
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
