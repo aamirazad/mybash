@@ -621,3 +621,7 @@ alias clickpaste='sleep 3; echo "type $(xclip -o -selection clipboard)" | dotool
 
 
 alias tr='ranger'
+
+# Add copilot alias
+
+eval "$(github-copilot-cli alias -- "$0")"
