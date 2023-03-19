@@ -65,3 +65,6 @@ alias jCode='cd /mnt/Storage/Users/Aamir/My-stuff/Github/'
 # Autojump
 [[ -s /home/aamir/.autojump/etc/profile.d/autojump.sh ]] && source /home/aamir/.autojump/etc/profile.d/autojump.sh
 
+# Github copilot cli
+
+eval "$(github-copilot-cli alias -- "$0")"
