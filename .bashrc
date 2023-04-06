@@ -57,6 +57,7 @@ alias ungz='tar -xvzf'
 
 # Fedora Storage drive
 alias mntStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /mnt/Storage/'
+alias mntUbuntu='sudo mount -U 91c2ef08-37ac-4132-b782-dec7cbd90917 /mnt/Ubuntu'
 alias mountStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /mnt/Storage/'
 alias jDown='cd /mnt/Storage/Users/Aamir/Downloads/'
 alias jMy-stuff='cd /mnt/Storage/Users/Aamir/My-stuff/'
@@ -68,3 +69,18 @@ alias jCode='cd /mnt/Storage/Users/Aamir/My-stuff/Github/'
 # Github copilot cli
 
 eval "$(github-copilot-cli alias -- "$0")"
+
+# Starship
+
+eval "$(starship init bash)"
+
+# fnm
+export PATH="/home/aamir/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+# Find text in pdf!
+
+function greppdf {
+    find . -name '*.pdf' -exec sh -c 'pdftotext "{}" -' \; | grep -i --with-filename --label=$1 "$1"
+}
+
