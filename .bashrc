@@ -626,3 +626,7 @@ alias tr='ranger'
 # Add copilot alias
 
 eval "$(github-copilot-cli alias -- "$0")"
+
+# fnm
+export PATH="/home/aamir/.local/share/fnm:$PATH"
+eval "`fnm env`"
