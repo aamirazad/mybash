@@ -218,6 +218,7 @@ alias fahstop='sudo /etc/init.d/FAHClient stop'
 # Mount Storage
 
 alias mountStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /media/aamir/Storage/'
+alias mntStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /mnt/Storage/'
 
 # KITTY - alias to be able to use kitty features when connecting to remote servers(e.g use tmux on remote server)
 
