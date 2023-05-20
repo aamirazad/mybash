@@ -224,6 +224,9 @@ alias mntStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /mnt/Storage/'
 
 alias kssh="kitty +kitten ssh"
 
+# Clickpaste
+
+alias clickpaste='sleep 4; xdotool type "$(xclip -o -selection clipboard)"'
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
@@ -373,46 +376,6 @@ pwdtail ()
 	pwd|awk -F/ '{nlast = NF -1;print $nlast"/"$NF}'
 }
 
-# Show the current distribution
-distribution ()
-{
-	local dtype
-	# Assume unknown
-	dtype="unknown"
-
-	# First test against Fedora / RHEL / CentOS / generic Redhat derivative
-	if [ -r /etc/rc.d/init.d/functions ]; then
-		source /etc/rc.d/init.d/functions
-		[ zz`type -t passed 2>/dev/null` == "zzfunction" ] && dtype="redhat"
-
-	# Then test against SUSE (must be after Redhat,
-	# I've seen rc.status on Ubuntu I think? TODO: Recheck that)
-	elif [ -r /etc/rc.status ]; then
-		source /etc/rc.status
-		[ zz`type -t rc_reset 2>/dev/null` == "zzfunction" ] && dtype="suse"
-
-	# Then test against Debian, Ubuntu and friends
-	elif [ -r /lib/lsb/init-functions ]; then
-		source /lib/lsb/init-functions
-		[ zz`type -t log_begin_msg 2>/dev/null` == "zzfunction" ] && dtype="debian"
-
-	# Then test against Gentoo
-	elif [ -r /etc/init.d/functions.sh ]; then
-		source /etc/init.d/functions.sh
-		[ zz`type -t ebegin 2>/dev/null` == "zzfunction" ] && dtype="gentoo"
-
-	# For Mandriva we currently just test if /etc/mandriva-release exists
-	# and isn't empty (TODO: Find a better way :)
-	elif [ -s /etc/mandriva-release ]; then
-		dtype="mandriva"
-
-	# For Slackware we currently just test if /etc/slackware-version exists
-	elif [ -s /etc/slackware-version ]; then
-		dtype="slackware"
-
-	fi
-	echo $dtype
-}
 
 # Show the current version of the operating system
 ver ()
@@ -613,13 +576,12 @@ eval "$(starship init bash)"
 
 #Autojump
 
-. /usr/share/autojump/autojump.sh
+. /home/aamir/.autojump/etc/profile.d/autojump.sh
 
   export DENO_INSTALL="/home/aamir/.deno"
   export PATH="$DENO_INSTALL/bin:$PATH"
 
 
-alias clickpaste='sleep 3; echo "type $(xclip -o -selection clipboard)" | dotool'
 
 
 alias tr='ranger'
@@ -631,3 +593,7 @@ eval "$(github-copilot-cli alias -- "$0")"
 # fnm
 export PATH="/home/aamir/.local/share/fnm:$PATH"
 eval "`fnm env`"
+
+# CS50 library
+
+export LIBRARY_PATH=/usr/local/lib
