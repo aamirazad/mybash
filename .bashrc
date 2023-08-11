@@ -226,7 +226,7 @@ alias kssh="kitty +kitten ssh"
 
 # Clickpaste
 
-alias clickpaste='sleep 4; xdotool type "$(xclip -o -selection clipboard)"'
+alias clickpaste='sleep 4; xclip -o -selection clipboard | tr "\n" "\r" | xdotool type --clearmodifiers --delay 500 --file -'
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
@@ -584,7 +584,6 @@ eval "$(starship init bash)"
 
 
 
-alias tr='ranger'
 
 # Add copilot alias
 
@@ -597,3 +596,5 @@ eval "`fnm env`"
 # CS50 library
 
 export LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH=/usr/local/lib
+
