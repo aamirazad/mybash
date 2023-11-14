@@ -49,8 +49,8 @@ if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
 # Set the default editor
-export EDITOR=neovim
-export VISUAL=neovim
+export EDITOR=nvim
+export VISUAL=nvim
 alias pico='edit'
 alias aamir='echo hello' 
 alias spico='sedit'
@@ -215,10 +215,6 @@ alias fahstart='sudo /etc/init.d/FAHClient start'
 alias fah-stop='sudo /etc/init.d/FAHClient stop'
 alias fahstop='sudo /etc/init.d/FAHClient stop'
 
-# Mount Storage
-
-alias mountStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /media/aamir/Storage/'
-alias mntStorage='sudo mount -o uid=1000,gid=1000,rw /dev/sda2 /mnt/Storage/'
 
 # KITTY - alias to be able to use kitty features when connecting to remote servers(e.g use tmux on remote server)
 
@@ -226,7 +222,15 @@ alias kssh="kitty +kitten ssh"
 
 # Clickpaste
 
-alias clickpaste='sleep 4; xclip -o -selection clipboard | tr "\n" "\r" | xdotool type --clearmodifiers --delay 500 --file -'
+# alias clickpaste='sleep 4; xclip -o -selection clipboard | tr "\n" "\r" | xdotool type --clearmodifiers --delay 500 --file -'
+clickpaste ()
+{
+    if [ $# -eq 0 ]; then
+        sleep 4; xclip -o -selection clipboard | tr "\n" "\r" | xdotool type --clearmodifiers --delay 500 --file -
+    else
+        sleep "${1}"; xclip -o -selection clipboard | tr "\n" "\r" | xdotool type --clearmodifiers --delay "${2}" --file -
+    fi
+}
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
@@ -566,35 +570,69 @@ lazyg() {
 # Set the ultimate amazing command prompt
 #######################################################
 
-alias hug="hugo server -F --bind=10.0.0.210 --baseURL=http://10.0.0.210"
-
-export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
-
 # Install Starship - curl -sS https://starship.rs/install.sh | sh
 
 eval "$(starship init bash)"
 
 #Autojump
 
-. /home/aamir/.autojump/etc/profile.d/autojump.sh
+if [ -f "/usr/share/autojump/autojump.sh" ]; then
+	. /usr/share/autojump/autojump.sh
+elif [ -f "/usr/share/autojump/autojump.bash" ]; then
+	. /usr/share/autojump/autojump.bash
+else
+	echo "can't found the autojump script"
+fi
 
-  export DENO_INSTALL="/home/aamir/.deno"
-  export PATH="$DENO_INSTALL/bin:$PATH"
-
-
-
-
-
-# Add copilot alias
-
+# Copilot cli
 eval "$(github-copilot-cli alias -- "$0")"
 
 # fnm
-export PATH="/home/aamir/.local/share/fnm:$PATH"
+export PATH="/home/aamira/.local/share/fnm:$PATH"
 eval "`fnm env`"
 
-# CS50 library
+# Image optimizer
 
-export LIBRARY_PATH=/usr/local/lib
-export LD_LIBRARY_PATH=/usr/local/lib
+optimg() {
+    pngquant -v --ext .png --force --skip-if-larger --strip --speed 1 --quality 80-90 "$@"
+}
 
+# Flutter path
+
+export PATH="$PATH:/opt/flutter/bin"
+export CHROME_EXECUTABLE='/usr/bin/brave-browser'
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+# auto launch ssh-agent for ssh passphrase
+
+# env=~/.ssh/agent.env
+#
+# agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+#
+# agent_start () {
+#     (umask 077; ssh-agent >| "$env")
+#     . "$env" >| /dev/null ; }
+#
+# agent_load_env
+#
+# # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+# agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+#
+# if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+#     agent_start
+#     ssh-add
+# elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+#     ssh-add
+# fi
+#
+# unset env
+
+# temp fahcontrol start
+
+alias fahcontrol="python2 /usr/bin/FAHControl"
+
+# Created by `pipx` on 2023-11-13 22:34:22
+export PATH="$PATH:/home/aamira/.local/bin"
